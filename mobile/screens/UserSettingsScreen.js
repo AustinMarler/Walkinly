@@ -87,6 +87,9 @@ export default class UserSettingsScreen extends Component {
       changePassword(this.state.email, this.state.newPassword)
       .then(() => {
         Alert.alert("Password was changed");
+        this.setState({
+          newPassword: ""
+        })
       })
       .catch(error => {
         console.log(error);
@@ -201,12 +204,13 @@ export default class UserSettingsScreen extends Component {
         </TouchableOpacity>
 
         <TextInput
+          secure
           style={styles.input}
           value={this.state.newPassword}
           placeholder="New Password"
           placeholderTextColor="#000000"
           autoCapitalize="none"
-          // secureTextEntry={true}? find out how to make this work later!
+          secureTextEntry={true}
           onChangeText={text => {
             this.setState({ newPassword: text });
           }}
