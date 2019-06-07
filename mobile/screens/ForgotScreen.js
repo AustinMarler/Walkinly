@@ -7,6 +7,8 @@ import {
     Form
 } from 'react-native';
 
+import { ipAddress } from '../constants/apiKeys';
+
 const title = {
     pageTitle: 'Forgot Password Screen'
 }
@@ -37,7 +39,7 @@ class ForgotScreen extends Component {
             });
         } else {
             axios
-                .post('http://10.68.0.155:3001/api/forgotPassword', {
+                .post(`http://${ipAddress}:3001/api/forgotPassword`, {
                     email: this.state.email
                 })
                 .then(response => {

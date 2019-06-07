@@ -6,6 +6,8 @@ import alarm from "../assets/sounds/alarm.mp3";
 import { connect } from "react-redux";
 import { setSosLocation, setSosStatus } from "../actions/Actions";
 
+import { ipAddress } from '../constants/apiKeys';
+
 Audio.setIsEnabledAsync(true);
 
 class SosButton extends Component {
@@ -97,7 +99,7 @@ class SosButton extends Component {
               },${userLatLng.longitude}. Please try to contact me at ${phone}!`
             }
           });
-          fetch("http://10.68.0.155:3001/api/messages", {
+          fetch(`http://${ipAddress}:3001/api/messages`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

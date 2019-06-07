@@ -2,6 +2,8 @@ import { AsyncStorage } from "react-native";
 import store from "../store";
 import axios from "axios";
 
+import { ipAddress } from '../constants/apiKeys';
+
 export function signout() {
   return new Promise((resolve, reject) => {
     AsyncStorage.clear()
@@ -22,7 +24,7 @@ export function signout() {
 export function getConnections(email) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://10.68.0.155:3001/api/contacts/${email}`)
+      .get(`http://${ipAddress}:3001/api/contacts/${email}`)
       .then(resp => {
         store.dispatch({
           type: "GET_CONNECTIONS",
@@ -39,7 +41,7 @@ export function getConnections(email) {
 export function signin(email, password) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://10.68.0.155:3001/api/login", { email, password })
+      .post(`http://${ipAddress}:3001/api/login`, { email, password })
       .then(async resp => {
         const { email, name, phonenumber } = resp.data;
         await getConnections(email);
@@ -64,7 +66,7 @@ export function signin(email, password) {
 export function register(email, password, phonenumber, firstname, lastname) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://10.68.0.155:3001/api/register", {
+      .post(`http://${ipAddress}:3001/api/register`, {
         email,
         password,
         phonenumber,
@@ -95,7 +97,7 @@ export function register(email, password, phonenumber, firstname, lastname) {
 export function changePassword(email, newPassword) {
   return new Promise((resolve, reject) => {
     axios
-      .patch("http://10.68.0.155:3001/api/changePassword", {
+      .patch(`http://${ipAddress}:3001/api/changePassword`, {
         email,
         newPassword
       })
@@ -125,7 +127,7 @@ export function setSosStatus(isActive) {
 export function newConnection(userEmail, phonenumber, firstname, lastname) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://10.68.0.155:3001/api/newConnection", {
+      .post(`http://${ipAddress}:3001/api/newConnection`, {
         userEmail,
         phonenumber,
         firstname,
@@ -144,7 +146,7 @@ export function newConnection(userEmail, phonenumber, firstname, lastname) {
 export function editConnection(userEmail, phonenumber, firstname, lastname) {
   return new Promise((resolve, reject) => {
     axios
-      .patch("http://10.68.0.155:3001/api/editConnection", {
+      .patch(`http://${ipAddress}:3001/api/editConnection`, {
         userEmail,
         phonenumber,
         firstname,
@@ -163,7 +165,7 @@ export function editConnection(userEmail, phonenumber, firstname, lastname) {
 export function deleteConnection(userEmail, phonenumber) {
   return new Promise((resolve, reject) => {
     axios
-      .delete("http://10.68.0.155:3001/api/deleteConnection", {
+      .delete(`http://${ipAddress}:3001/api/deleteConnection`, {
         data: {
           userEmail,
           phonenumber

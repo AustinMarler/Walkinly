@@ -12,6 +12,7 @@ const twilio = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
 );
+const ipAddress = process.env.IP_ADDRESS
 
 var indexRouter = require("./routes/index");
 
@@ -46,7 +47,7 @@ app.post('/api/messages', (req, res) => {
     });
 });
 
-app.post("http://10.68.0.155:3001/api/messages", (req, res) => {
+app.post(`http://${ipAddress}:3001/api/messages`, (req, res) => {
   res.header("Content-Type", "application/json");
   twilio.messages
     .create({
